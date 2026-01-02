@@ -1,0 +1,918 @@
+/*----------------------------------------------------------------------------------- 
+
+------------------------------------------------------
+   CSS INDEX
+-----------------------------------------------------
+
+    # Common CSS
+    # Hero Section CSS
+    # About Section CSS
+    # Enjoy Food Section CSS
+    # Food CSS
+    # Gallery Section CSS
+    # Testimonial Section CSS
+    # Team Section CSS
+    # Booking Section CSS
+    # Opening Time Section CSS
+    # Blog Section CSS
+    # Instagram Section CSS
+
+-------------------------------------------------------    */
+/* Common CSS */
+@media (max-width: 1650px) {
+    h2 {
+        font-size: 52px;
+        line-height: 65px;
+    }
+}
+@media (max-width: 767.98px) {
+    h2 {
+        font-size: 28px;
+        line-height: 45px;
+    }
+}
+
+/* Hero Section */
+.rs-hero {
+    position: relative;
+    z-index: 1;
+    background-color: var(--primary-black-color);
+}
+.rs-hero .hero-image {
+    position: absolute;
+    z-index: -1;
+}
+@media screen and (max-width: 1199.98px) {
+    .rs-hero .hero-image {
+        display: none;
+    }
+}
+.rs-hero .hero-image img {
+    border-radius: 400px 400px 0px 0px;
+}
+.rs-hero .hero-image.image_one {
+    top: 20%;
+    left: 100px;
+}
+@media (max-width: 1650px) {
+    .rs-hero .hero-image.image_one {
+        max-width: 380px;
+        left: 30px;
+    }
+}
+.rs-hero .hero-image.image_two {
+    position: absolute;
+    bottom: 0;
+    right: 100px;
+}
+@media (max-width: 1650px) {
+    .rs-hero .hero-image.image_two {
+        max-width: 380px;
+        right: 30px;
+    }
+}
+
+.hero-content .sub-head {
+    margin-bottom: 40px;
+}
+.hero-content h1 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 70px;
+    line-height: 70px;
+    letter-spacing: -1px;
+}
+.hero-content p {
+    font-size: 32px !important;
+    font-weight: 800;
+    color: var(--primary-color-2) !important;
+    text-transform: uppercase;
+}
+@media screen and (max-width: 1199.98px) {
+    .hero-content h1 {
+        font-size: 48px;
+        line-height: 50px;
+    }
+}
+.hero-content p {
+    color: var(--white-color);
+    font-size: 22px;
+    line-height: 35px;
+    margin-bottom: 30px;
+}
+.hero-content .bistly-button .theme-btn.style-one:hover {
+    background-color: var(--white-color);
+    color: var(--primary-color);
+}
+
+.bistly-counter-item .content h2 {
+    color: var(--primary-color-1);
+    font-size: 75px;
+    line-height: 1;
+}
+.bistly-counter-item .content p {
+    color: var(--primary-color-1);
+}
+.bistly-counter-item .content h2 i {
+    font-size: 24px;
+    color: #ff9f1a;
+    vertical-align: super;
+    -webkit-margin-start: 5px;
+    margin-inline-start: 5px;
+}
+
+/* About Section */
+.rs-about .shape {
+    position: absolute;
+    z-index: -1;
+}
+.rs-about .shape img {
+    opacity: 0.1;
+}
+.rs-about .shape.shape-one {
+    right: 60px;
+    top: 250px;
+}
+.rs-about .shape.shape-two {
+    right: 40%;
+    bottom: 125px;
+}
+.rs-about .shape.shape-three {
+    left: 2%;
+    top: 100px;
+}
+.rs-about .big-text {
+    position: absolute;
+    top: 37%;
+    left: 48%;
+    font-size: 96px;
+    font-family: var(--heading-font);
+    line-height: 1;
+    text-align: right;
+    z-index: 2;
+}
+@media screen and (max-width: 991.98px) {
+    .rs-about .big-text {
+        position: relative;
+        top: auto;
+        left: auto;
+        text-align: left;
+        margin: 0 40px 50px;
+    }
+}
+@media screen and (max-width: 991.98px) and (max-width: 767.98px) {
+    .rs-about .big-text {
+        font-size: 42px;
+    }
+}
+.rs-about .bistly-image.image-two img {
+    border-radius: 30px;
+}
+
+.image-radius img {
+    border-radius: 30px;
+}
+
+/* Enjoy Food Section */
+.rs-enjoy-food {
+    position: relative;
+    z-index: 1;
+}
+.rs-enjoy-food .shape {
+    position: absolute;
+    z-index: -1;
+}
+.rs-enjoy-food .shape img {
+    opacity: 0.1;
+}
+.rs-enjoy-food .shape.shape-one {
+    top: 100px;
+    left: 33%;
+}
+.rs-enjoy-food .shape.shape-two {
+    bottom: 180px;
+    left: 110px;
+}
+.rs-enjoy-food .bistly-image-box.image-box-one {
+    -webkit-margin-start: -80px;
+    margin-inline-start: -80px;
+}
+@media screen and (max-width: 1199.98px) {
+    .rs-enjoy-food .bistly-image-box.image-box-one {
+        -webkit-margin-start: 0;
+        margin-inline-start: 0;
+    }
+}
+.rs-enjoy-food .bistly-image-box.image-box-two {
+    -webkit-margin-end: -200px;
+    margin-inline-end: -200px;
+}
+@media (max-width: 1650px) {
+    .rs-enjoy-food .bistly-image-box.image-box-two {
+        -webkit-margin-end: -120px;
+        margin-inline-end: -120px;
+    }
+}
+@media (max-width: 1399.98px) {
+    .rs-enjoy-food .bistly-image-box.image-box-two {
+        -webkit-margin-end: -90px;
+        margin-inline-end: -90px;
+    }
+}
+@media screen and (max-width: 1199.98px) {
+    .rs-enjoy-food .bistly-image-box.image-box-two {
+        -webkit-margin-end: 0;
+        margin-inline-end: 0;
+    }
+}
+.rs-enjoy-food .bistly-content-box {
+    padding: 0 30px;
+}
+@media screen and (max-width: 991.98px) {
+    .rs-enjoy-food .bistly-content-box {
+        padding: 0 50px;
+    }
+}
+@media (max-width: 767.98px) {
+    .rs-enjoy-food .bistly-content-box {
+        padding: 0;
+    }
+}
+.rs-enjoy-food .bistly-content-box p {
+    font-size: 20px;
+    line-height: 35px;
+}
+.rs-enjoy-food .bistly-content-box .theme-btn.style-one:hover {
+    background-color: var(--white-color);
+    color: var(--primary-black-color);
+}
+/* Menu Section CSS */
+.menu-slider {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.menu-slider .slick-slide {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.bistly-product-item {
+    background-color: var(--primary-bg);
+    padding: 10px;
+    border-radius: 30px;
+}
+.bistly-product-item:hover .thumbnail .add-to-cart {
+    bottom: 10px;
+}
+.bistly-product-item .thumbnail {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.bistly-product-item .thumbnail .wishlist-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-bg);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.bistly-product-item .thumbnail .wishlist-btn:hover {
+    color: var(--primary-color);
+}
+.bistly-product-item .thumbnail .wishlist-btn i {
+    color: var(--primary-color);
+}
+.bistly-product-item .thumbnail .add-to-cart {
+    position: absolute;
+    bottom: -50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.bistly-product-item .thumbnail .add-to-cart a {
+    padding: 12px 20px;
+    color: var(--heading-color);
+    border-radius: 30px;
+    line-height: 1;
+    font-weight: 500;
+    background-color: var(--primary-color);
+}
+.bistly-product-item img {
+    width: 100%;
+    border-radius: 22px;
+    max-height: 164px;
+}
+.bistly-product-item .content {
+    padding: 15px 25px 10px;
+}
+.bistly-product-item .content .ratings-price-wrap {
+    margin-bottom: 8px;
+}
+.bistly-product-item .content .ratings-price-wrap .ratings i {
+    color: var(--primary-color-1);
+}
+.bistly-product-item .content .ratings-price-wrap .price {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+.bistly-product-item .content h4 {
+    margin-bottom: 8px;
+    overflow: hidden;
+    font-size: 20px;
+}
+.bistly-product-item .content h4 a {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Food Section */
+
+.bistly-food-item {
+    position: relative;
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.bistly-food-item:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.bistly-food-item .hover-image {
+    -webkit-transition: opacity 0.3s, 1, 0.32, 1,
+        -webkit-transform 0.7scubic-bezier 0.23;
+    transition: opacity 0.3s, 1, 0.32, 1,
+        -webkit-transform 0.7scubic-bezier 0.23;
+    transition: opacity 0.3s, transform 0.7scubic-bezier 0.23, 1, 0.32, 1;
+    transition: opacity 0.3s, transform 0.7scubic-bezier 0.23, 1, 0.32, 1,
+        -webkit-transform 0.7scubic-bezier 0.23;
+    position: absolute;
+    width: 250px;
+    height: 340px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    left: 0;
+    top: 20px;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+@media screen and (max-width: 991.98px) {
+    .bistly-food-item .hover-image {
+        display: none;
+    }
+}
+.bistly-food-item .content h2 {
+    font-size: 120px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.5);
+}
+@media (max-width: 767.98px) {
+    .bistly-food-item .content h2 {
+        font-size: 60px;
+    }
+}
+.bistly-food-item .content p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 26px;
+    line-height: 35px;
+}
+.bistly-food-item:hover .content h2 {
+    color: var(--white-color);
+}
+.bistly-food-item:hover .content p {
+    color: var(--white-color);
+}
+.bistly-food-item:hover .hover-image {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Gallery Section */
+.rs-gallery {
+    padding: 0 15px 140px;
+}
+@media screen and (max-width: 991.98px) {
+    .rs-gallery {
+        padding: 0;
+    }
+}
+
+.gallery-slider {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+@media screen and (max-width: 991.98px) {
+    .gallery-slider {
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+}
+.gallery-slider .bistly-gallery-item {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+@media screen and (max-width: 991.98px) {
+    .gallery-slider .bistly-gallery-item {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+}
+
+/* Testimonial Section */
+.rs-testimonial {
+    padding-top: 80px;
+}
+
+.testimonial-slider .slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: var(--primary-color-2);
+    color: var(--white-color);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.3s ease;
+}
+.bistly-testimonial-item .ratings i {
+    color: var(--primary-color-2) !important;
+    font-size: 22px;
+    margin-bottom: 40px;
+}
+.testimonial-slider .slick-arrow.next {
+    right: -15%;
+}
+.testimonial-slider .slick-arrow i {
+    color: var(--primary-color);
+}
+@media screen and (max-width: 1199.98px) {
+    .testimonial-slider .slick-arrow.next {
+        right: -10%;
+    }
+}
+.testimonial-slider .slick-arrow.prev {
+    left: -15%;
+}
+@media screen and (max-width: 1199.98px) {
+    .testimonial-slider .slick-arrow.prev {
+        left: -10%;
+    }
+}
+
+.bistly-testimonial-item {
+    text-align: center;
+}
+.bistly-testimonial-item .testimonial-content .ratings i {
+    color: var(--rating-color);
+}
+.bistly-testimonial-item .testimonial-content p {
+    font-size: 32px;
+    line-height: 50px;
+    color: var(--white-color);
+    font-family: var(--heading-font);
+    margin-bottom: 25px;
+}
+@media (max-width: 767.98px) {
+    .bistly-testimonial-item .testimonial-content p {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+.bistly-testimonial-item .testimonial-content span {
+    color: var(--white-color);
+    font-size: 26px;
+}
+
+/* Team Section */
+.rs-team-item .member-image img {
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.rs-team-item:hover .member-image img {
+    border-radius: 300px 300px 0px 0px;
+}
+
+/* Booking Section */
+.rs-booking:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 68, 67, 0.5);
+    z-index: -1;
+}
+
+/*  Time Section */
+.rs-time-sec {
+    background-color: var(--primary-black-color);
+}
+.rs-time-sec .bistly-content-box p {
+    font-size: 20px;
+    line-height: 32px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.rs-time-sec .map-box iframe {
+    height: 325px;
+}
+.rs-time-sec .opening-time-box {
+    padding: 40px 50px 45px;
+    -webkit-margin-start: 70px;
+    margin-inline-start: 70px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+@media screen and (max-width: 1199.98px) {
+    .rs-time-sec .opening-time-box {
+        -webkit-margin-start: 0;
+        margin-inline-start: 0;
+    }
+}
+.rs-time-sec .opening-time-box h3 {
+    color: var(--white-color);
+    margin-bottom: 35px;
+}
+.rs-time-sec .opening-time-box ul li {
+    color: var(--white-color);
+}
+.rs-time-sec .opening-time-box ul li span {
+    float: right;
+}
+.rs-time-sec .opening-time-box ul li .close {
+    color: var(--primary-color);
+}
+.rs-time-sec .opening-time-box ul li:not(:last-child) {
+    margin-bottom: 25px;
+    padding-bottom: 30px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+/* Blog Section */
+.bistly-blog-post .post-thumbnail img {
+    width: 100%;
+}
+.bistly-blog-post .post-content {
+    padding-top: 25px;
+}
+.bistly-blog-post .post-content .post-meta span {
+    margin-bottom: 10px;
+}
+.bistly-blog-post .post-content .post-meta span:not(:last-child) {
+    -webkit-margin-end: 25px;
+    margin-inline-end: 25px;
+}
+.bistly-blog-post .post-content .post-meta span i {
+    -webkit-margin-end: 10px;
+    margin-inline-end: 10px;
+}
+.bistly-blog-post .post-content h4 {
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 25px;
+}
+.bistly-blog-post .post-content h4:hover {
+    color: var(--primary-color);
+}
+.bistly-blog-post .post-content .read-more.style-one:hover {
+    color: var(--primary-color);
+}
+
+/* Instagram Section */
+.bistly-instagram-item:hover .thumbnail .hover-content {
+    visibility: visible;
+    opacity: 1;
+}
+.bistly-instagram-item:hover .thumbnail .hover-content .icon {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+.bistly-instagram-item .thumbnail {
+    position: relative;
+    overflow: hidden;
+}
+.bistly-instagram-item .thumbnail .hover-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: rgba(45, 68, 67, 0.502);
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.bistly-instagram-item .thumbnail .hover-content .icon {
+    color: var(--white-color);
+    font-size: 20px;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+}
+
+/*  Popular Section */
+.popular-item-list.item-list-left {
+    direction: rtl;
+}
+@media screen and (max-width: 1199.98px) {
+    .popular-item-list.item-list-left {
+        direction: ltr;
+    }
+}
+
+.bistly-popular-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.bistly-popular-item .icon {
+    -webkit-margin-end: 30px;
+    margin-inline-end: 30px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 50px;
+    font-size: 50px;
+    color: var(--heading-color);
+}
+.bistly-popular-item .content {
+    margin-top: -5px;
+}
+.bistly-popular-item .content h4 {
+    margin-bottom: 5px;
+    color: var(--primary-color-1);
+}
+.popular-section .bistly-image img {
+    border-radius: 50px;
+    border-radius: 30px !important;
+    border: 15px solid var(--primary-color-2);
+    /* transform: rotate(-2deg); */
+}
+.popular-section .bistly-image {
+    padding: 0 30px;
+}
+.rs-food-categories .bistly-food-item {
+    background: var(--white-color);
+    border-radius: 30px;
+    padding: 20px;
+    border: 15px solid var(--primary-bg);
+}
+.rs-food-categories h3 {
+    font-size: 36px !important;
+    color: var(--primary-color-1) !important;
+    line-height: 20px !important;
+    margin-top: 50px;
+}
+.rs-food-categories .bistly-food-item .content p {
+    color: var(--primary-color-1);
+    margin: 20px 0px;
+}
+.rs-food-categories .bistly-food-item .ratings i {
+    color: var(--primary-color);
+    font-size: 22px;
+}
+.rs-food-categories .image {
+    padding: 30px 50px 0;
+}
+.rs-food-categories .image img {
+    border-radius: 10px;
+}
+.rs-food-categories .food-category:nth-child(1) .bistly-food-item {
+    transform: rotate(-0.8deg);
+}
+.rs-food-categories .food-category:nth-child(2) .bistly-food-item {
+    transform: rotate(0.8deg);
+}
+.rs-food-categories .food-category:nth-child(3) .bistly-food-item {
+    transform: rotate(-0.8deg);
+}
+.rs-food-categories .food-category:nth-child(1) .bistly-food-item img {
+    transform: rotate(2deg);
+}
+.rs-food-categories .food-category:nth-child(2) .bistly-food-item img {
+    transform: rotate(-2deg);
+}
+.rs-food-categories .food-category:nth-child(3) .bistly-food-item img {
+    transform: rotate(2deg);
+}
+.rs-food-categories .bistly-food-item a {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.rs-food-categories .bistly-food-item a:hover {
+    background: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+.bistly-product-item .add-to-cart {
+    width: 100%;
+    margin-top: 20px;
+}
+.rs-video-bg {
+    position: relative;
+    height: 80vh; /* Full viewport height */
+}
+.rs-video-bg .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Fill parent height */
+    overflow: hidden;
+    z-index: -1;
+}
+
+.rs-video-bg .video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures coverage */
+}
+
+.rs-hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding-top: 90px;
+}
+
+.rs-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color-1);
+    opacity: 0.98;
+    z-index: 0;
+}
+
+.rs-hero .container-fluid {
+    position: relative;
+    z-index: 1; /* Ensure content stays above the overlay */
+}
+
+/* Ensure hero images and content remain above the overlay */
+.rs-hero .hero-image,
+.rs-hero .hero-content {
+    z-index: 1;
+}
+.rs-hero .theme-btn {
+    background: var(--primary-color);
+    color: var(--primary-bg);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0px;
+    padding: 15px 30px;
+    border-width: 2px;
+    width: 100%;
+}
+.rs-hero .theme-btn:hover {
+    background: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.hero-col-1 {
+    padding: 80px 150px;
+}
+
+.bistly-features-sec
+    .bistly-content-box
+    .bistly-button
+    .theme-btn.style-one:hover {
+    background-color: var(--white-color);
+    color: var(--heading-color);
+}
+.bistly-features-sec .bistly-image img {
+    border-radius: 400px 400px 0px 0px;
+}
+.rs-about .bistly-iconic-box img {
+    width: 20%;
+}
+.rs-about .bistly-iconic-box .content p {
+    font-weight: 600;
+    color: var(--primary-color-1);
+}
+.rs-about .bistly-image img {
+    border-radius: 30px !important;
+    border: 15px solid var(--primary-color-2);
+    transform: rotate(-2deg);
+}
+.review1-item {
+    background: var(--primary-color-2);
+    border-radius: 30px;
+    padding: 60px 30px 100px;
+}
+.review1-item .ratings i {
+    color: var(--primary-color-1);
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.review1-item h3 {
+    color: var(--primary-color-1);
+    font-size: 26px;
+}
+.review1-item p {
+    font-size: 22px;
+    color: var(--primary-color-1);
+    margin-bottom: 50px;
+}
+.review1-item p.review1by {
+    font-weight: bold;
+}
+.review1-img img {
+    border-radius: 30px;
+    border: 15px solid var(--primary-color-2);
+}
+.rs-food-menu {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rs-enjoy-food a.theme-btn {
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color);
+}
+.rs-enjoy-food a.theme-btn:hover {
+    background: transparent !important;
+    border-color: var(--primary-color);
+    color: var(--primary-color) !important;
+}
+.gallery-slider .bistly-gallery-item img {
+    border-radius: 30px;
+}
+.footer-about-widget a img {
+    width: 60%;
+}
+.hero-col-1 .hero-content img {
+    border-radius: 20px;
+}
+.nav-button .cartbtn {
+    padding-left: 20px;
+    font-size: 24px;
+    color: var(--primary-color-1);
+}
+.nav-button .cartbtn img {
+    width: 40px;
+}
+
+@media (min-width: 1440px) and (max-width: 1600px) {
+    .hero-col-1 {
+        padding: 80px 100px;
+    }
+}
+@media (min-width: 1280px) and (max-width: 1440px) {
+    .hero-col-1 {
+        padding: 80px 70px;
+    }
+    .rs-enjoy-food .bistly-image-box.image-box-one {
+        -webkit-margin-start: 0px;
+        margin-inline-start: 0px;
+    }
+}
+@media (max-width: 767px) {
+    .hero-col-1 {
+        padding: 0px 20px 60px;
+    }
+    .rs-hero {
+        padding-top: 50px;
+    }
+}

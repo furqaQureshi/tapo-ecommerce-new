@@ -1,0 +1,793 @@
+<?php
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\SubscriptionPlan;
+use App\Models\User;
+use App\Notifications\CouponCreated;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+
+
+class CouponController extends Controller
+{
+    public function list(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->getCouponsDataTable();
+        }
+
+        // Get statistics for dashboard
+        $stats = [
+            'total_coupons' => Coupon::count(),
+            'active_coupons' => Coupon::active()->notExpired()->count(),
+            'total_usage' => Coupon::sum('used_count'),
+            'expired_coupons' => Coupon::where('expiry_date', '<', Carbon::now()->toDateString())->count(),
+        ];
+
+        $data = [
+            'products'=> Product::where('status', 'active')->get(),
+            'categories' => Category::where('status', 1)->get(),
+            'subscriptions' => SubscriptionPlan::where('status','1')->get()
+
+        ];
+
+
+
+        return view('admin.coupons.list', compact('stats','data'));
+
+    }
+
+
+
+    /**
+
+     * Get DataTables data
+
+     */
+
+    private function getCouponsDataTable()
+
+    {
+
+        $coupons = Coupon::select([
+
+            'id',
+
+            'code',
+
+            'type',
+
+            'value',
+
+            'min_amount',
+
+            'max_discount',
+
+            'usage_limit',
+
+            'used_count',
+
+            'expiry_date',
+
+            'status',
+
+            'description',
+
+            'created_at',
+
+            'per_user_limit'
+
+        ])
+
+        ->with(['categories:id', 'products:id','variants:id']);
+
+
+
+        return DataTables::of($coupons)
+
+            ->addColumn('coupon_info', function ($coupon) {
+
+                return view('admin.coupons.partials.coupon-info', compact('coupon'))->render();
+
+            })
+
+            ->addColumn('discount_info', function ($coupon) {
+
+                return view('admin.coupons.partials.discount-info', compact('coupon'))->render();
+
+            })
+
+            ->addColumn('usage_info', function ($coupon) {
+
+                return view('admin.coupons.partials.usage-info', compact('coupon'))->render();
+
+            })
+
+            ->addColumn('status_badge', function ($coupon) {
+
+                if ($coupon->is_expired) {
+
+                    return '<h5><span class="badge bg-danger-subtle text-danger fw-medium">Expired</span></h5>';
+
+                }
+
+
+
+                switch ($coupon->status) {
+
+                    case 'active':
+
+                        return '<h5><span class="badge bg-success-subtle text-success fw-medium">Active</span></h5>';
+
+                    case 'inactive':
+
+                        return '<h5><span class="badge bg-warning-subtle text-warning fw-medium">Inactive</span></h5>';
+
+                    default:
+
+                        return '<h5><span class="badge bg-secondary-subtle text-secondary fw-medium">Unknown</span></h5>';
+
+                }
+
+            })
+
+            ->addColumn('actions', function ($coupon) {
+
+                return view('admin.coupons.partials.actions', compact('coupon'))->render();
+
+            })
+
+            ->editColumn('expiry_date', function ($coupon) {
+
+                $expiry = $coupon->expiry_date->format('M d, Y');
+
+                if ($coupon->is_expired) {
+
+                    $expiry .= '<br><small class="text-danger">Expired</small>';
+
+                }
+
+                return $expiry;
+
+            })
+
+            ->filterColumn('code', function ($query, $keyword) {
+
+                $query->where('code', 'like', "%{$keyword}%");
+
+            })
+
+            ->filterColumn('status', function ($query, $keyword) {
+
+                if ($keyword === 'expired') {
+
+                    $query->where('expiry_date', '<', Carbon::now()->toDateString());
+
+                } else {
+
+                    $query->where('status', $keyword);
+
+                }
+
+            })
+
+            ->rawColumns(['coupon_info', 'discount_info', 'usage_info', 'status_badge', 'actions', 'expiry_date'])
+
+            ->make(true);
+
+    }
+
+
+
+    /**
+
+     * Show the form for creating a new resource.
+
+     */
+
+    public function create()
+
+    {
+
+        return view('admin.coupons.create');
+
+    }
+
+
+
+    /**
+
+     * Store a newly created resource in storage.
+
+     */
+
+    public function store(Request $request)
+
+    {
+
+        $validator = Validator::make($request->all(), [
+
+            'code' => 'required|string|max:50|unique:coupons,code',
+
+            'type' => 'required|in:percentage,fixed',
+
+            'value' => 'required|numeric|min:0.01',
+
+            'min_amount' => 'required|numeric|min:0',
+
+            'max_discount' => 'nullable|numeric|min:0',
+
+            'usage_limit' => 'required|integer|min:1',
+
+            'expiry_date' => 'required|date|after:today',
+
+            'status' => 'required|in:active,inactive',
+
+            'description' => 'nullable|string|max:500'
+
+        ]);
+
+
+
+        if ($validator->fails()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => $validator->errors()
+
+            ], 422);
+
+        }
+
+
+
+        // Additional validation for percentage
+
+        if ($request->type === 'percentage' && $request->value > 100) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => ['value' => ['Percentage value cannot be greater than 100']]
+
+            ], 422);
+
+        }
+
+
+
+        $coupon = Coupon::create($request->all());
+
+        if (!empty($request->coupon_categories)) {
+
+            $coupon->categories()->sync($request->coupon_categories);
+
+        }
+
+        if (!empty($request->coupon_products)) {
+
+            $coupon->products()->sync($request->coupon_products);
+
+        }
+
+        if (!empty($request->coupon_product_variants)) {
+
+            $coupon->variants()->sync($request->coupon_product_variants);
+
+        }
+
+
+
+        $customers = User::all()->filter(function ($user) {
+
+            return $user->hasRole('customer');
+
+        });
+
+        
+
+        // foreach ($customers as $customer) {
+
+        //     $customer->notify(new CouponCreated($coupon));
+
+        // }
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Coupon created successfully!',
+
+            'coupon' => $coupon
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Display the specified resource.
+
+     */
+
+    public function show(Coupon $coupon)
+
+    {
+
+        return view('admin.coupons.show', compact('coupon'));
+
+    }
+
+
+
+    /**
+
+     * Show the form for editing the specified resource.
+
+     */
+
+    public function edit(Coupon $coupon)
+
+    {
+
+        return response()->json([
+
+            'success' => true,
+
+            'coupon' => $coupon
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Update the specified resource in storage.
+
+     */
+
+    public function update(Request $request, $id)
+
+    {
+
+        $coupon = Coupon::find($id);
+
+        $validator = Validator::make($request->all(), [
+
+            'code' => 'required|string|max:50|unique:coupons,code,' . $coupon->id,
+
+            'type' => 'required|in:percentage,fixed',
+
+            'value' => 'required|numeric|min:0.01',
+
+            'min_amount' => 'required|numeric|min:0',
+
+            'max_discount' => 'nullable|numeric|min:0',
+
+            'usage_limit' => 'required|integer|min:1',
+
+            'expiry_date' => 'required|date|after_or_equal:today',
+
+            'status' => 'required|in:active,inactive,expired',
+
+            'description' => 'nullable|string|max:500'
+
+        ]);
+
+
+
+        if ($validator->fails()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => $validator->errors()
+
+            ], 422);
+
+        }
+
+
+
+        // Additional validation for percentage
+
+        if ($request->type === 'percentage' && $request->value > 100) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => ['value' => ['Percentage value cannot be greater than 100']]
+
+            ], 422);
+
+        }
+
+
+
+        // Don't allow reducing usage limit below current used count
+
+        if ($request->usage_limit < $coupon->used_count) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => ['usage_limit' => ['Usage limit cannot be less than current used count (' . $coupon->used_count . ')']]
+
+            ], 422);
+
+        }
+
+
+
+        $coupon->update($request->only([
+
+            'code',
+
+            'type',
+
+            'value',
+
+            'min_amount',
+
+            'max_discount',
+
+            'usage_limit',
+
+            'expiry_date',
+
+            'status',
+
+            'description',
+
+            'per_user_limit'
+
+        ]));
+
+
+
+        if (!empty($request->coupon_categories)) {
+
+            $coupon->categories()->sync($request->coupon_categories);
+
+        }
+
+        if (!empty($request->coupon_products)) {
+
+            $coupon->products()->sync($request->coupon_products);
+
+        }
+
+        if (!empty($request->coupon_product_variants)) {
+
+            $coupon->variants()->sync($request->coupon_product_variants);
+
+        }
+
+
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Coupon updated successfully!',
+
+            'coupon' => $coupon->fresh()
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Remove the specified resource from storage.
+
+     */
+
+    public function destroy($id)
+
+    {
+
+        $coupon = Coupon::find($id);
+
+
+
+        // Don't delete if coupon has been used
+
+        if ($coupon->used_count > 0) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'Cannot delete coupon that has been used. You can deactivate it instead.'
+
+            ], 400);
+
+        }
+
+
+
+        $coupon->delete();
+
+
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Coupon deleted successfully!'
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Toggle coupon status
+
+     */
+
+    public function toggleStatus(Coupon $coupon)
+
+    {
+
+        $coupon->status = $coupon->status === 'active' ? 'inactive' : 'active';
+
+        $coupon->save();
+
+
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Coupon status updated successfully!',
+
+            'status' => $coupon->status
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Apply coupon (for API or frontend use)
+
+     */
+
+    public function applyCoupon(Request $request)
+
+    {
+
+        $request->validate([
+
+            'coupon_code' => 'required|string',
+
+        ]);
+
+
+
+        $coupon = Coupon::where('code', $request->coupon_code)
+
+            ->where('status', 'active')
+
+            ->whereDate('start_date', '<=', now())
+
+            ->whereDate('end_date', '>=', now())
+
+            ->first();
+
+
+
+        if (!$coupon) {
+
+            return redirect()->back()->with('error', 'Invalid or expired coupon.');
+
+        }
+
+
+
+        // Calculate cart total
+
+        $cartItems = session('cartItems', []);
+
+        $cartTotal = 0;
+
+        foreach ($cartItems as $item) {
+
+            $cartTotal += $item['price'] * $item['quantity'];
+
+        }
+
+
+
+        if ($cartTotal <= 0) {
+
+            return redirect()->back()->with('error', 'Your cart is empty.');
+
+        }
+
+
+
+        // Calculate discount
+
+        $discountAmount = 0;
+
+
+
+        if ($coupon->type === 'fixed') {
+
+            $discountAmount = min($coupon->value, $cartTotal);
+
+        } elseif ($coupon->type === 'percentage') {
+
+            $discountAmount = ($coupon->value / 100) * $cartTotal;
+
+        }
+
+
+
+        // Respect max_discount if set
+
+        if ($coupon->max_discount) {
+
+            $discountAmount = min($discountAmount, $coupon->max_discount);
+
+        }
+
+
+
+        // Avoid discount going negative
+
+        $discountAmount = min($discountAmount, $cartTotal);
+
+
+
+        // Save to session
+
+        session([
+
+            'applied_coupon' => [
+
+                'code' => $coupon->code,
+
+                'type' => $coupon->type,
+
+                'value' => $coupon->value,
+
+            ],
+
+            'discount_amount' => $discountAmount,
+
+        ]);
+
+
+
+        return redirect()->back()->with('success', 'Coupon applied successfully.');
+
+    }
+
+
+
+
+
+    /**
+
+     * Bulk actions
+
+     */
+
+    public function bulkAction(Request $request)
+
+    {
+
+        $validator = Validator::make($request->all(), [
+
+            'action' => 'required|in:delete,activate,deactivate',
+
+            'ids' => 'required|array|min:1',
+
+            'ids.*' => 'exists:coupons,id'
+
+        ]);
+
+
+
+        if ($validator->fails()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'errors' => $validator->errors()
+
+            ], 422);
+
+        }
+
+
+
+        $coupons = Coupon::whereIn('id', $request->ids);
+
+        $count = $coupons->count();
+
+
+
+        switch ($request->action) {
+
+            case 'delete':
+
+                // Only delete unused coupons
+
+                $coupons->where('used_count', 0)->delete();
+
+                break;
+
+            case 'activate':
+
+                $coupons->update(['status' => 'active']);
+
+                break;
+
+            case 'deactivate':
+
+                $coupons->update(['status' => 'inactive']);
+
+                break;
+
+        }
+
+
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => "Bulk action performed on {$count} coupons successfully!"
+
+        ]);
+
+    }
+
+
+
+    /**
+
+     * Get Variants by Multiple Products
+
+     */
+
+    public function getVariantsByProducts(Request $request)
+
+    {
+
+        $variants = ProductVariant::whereIn('product_id', $request->product_ids)->get(['id', 'name']);
+
+        return response()->json($variants);
+
+    }
+
+}
+

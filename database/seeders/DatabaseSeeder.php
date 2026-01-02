@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // $this->call(GiftCardCodeSeeder::class);
+        // $this->call(CodeEmailedSeeder::class);
+        // $this->call(FooterSeeder::class);
+        // $this->call(UpdateCategoryUniqueIdSeeder::class);
+        // $this->call(UpdatePermissionsSeeder::class);
+        // $this->call(CustomerRoleSeeder::class);
+        // $this->call(CouponSeeder::class);
+        // $this->call(UpdateProductVariantNamesSeeder::class);
+        // \App\Models\User::factory(10)->create();
+        // $this->call(OrderShippingSeeder::class);
+        $this->call(AppSettingSeeder::class);
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+    }
+}
