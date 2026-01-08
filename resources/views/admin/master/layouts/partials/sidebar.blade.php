@@ -358,6 +358,13 @@
                                          Free shipping
                                      </a>
                                  </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.subscription.settings') }}"
+                                        class="nav-link {{ request()->routeIs('admin.subscription.settings*') ? 'active' : '' }}"
+                                        data-key="t-subscription">
+                                        Subscription Settings
+                                    </a>
+                                </li>
                              </ul>
                          </div>
                      </li>

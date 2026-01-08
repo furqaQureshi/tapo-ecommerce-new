@@ -54,9 +54,11 @@ use App\Http\Controllers\Admin\ProductBundleController;
 use App\Http\Controllers\Admin\MonthlyProductController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Admin\SubscriptionPlanController;
+use App\Http\Controllers\Admin\DeliveryIntervalController;
 use App\Http\Controllers\Front\BlogController as FrontBlogController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\Admin\FreeShippingController;
+use App\Http\Controllers\Admin\SubscriptionSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -474,6 +476,9 @@ Route::prefix('account')->group(function () {
     Route::get('settings/free-shipping/{id}/edit', [FreeShippingController::class, 'edit'])->name('admin.free-shipping.create');
     Route::post('settings/free-shipping', [FreeShippingController::class, 'update'])->name('admin.settings.free-shipping.update');
 
+    Route::get('settings/subscription', [SubscriptionSettingController::class, 'edit'])->name('admin.subscription.settings');
+    Route::post('settings/subscription', [SubscriptionSettingController::class, 'update'])->name('admin.subscription.settings.update');
+
     // FACEBOOK
     // Route::get('login/facebook', [SocialController::class, 'redirectToFacebook'])->name('login.facebook');
     // Route::get('callback/facebook', [SocialController::class, 'handleFacebookCallback'])->name('callback.facebook');
@@ -610,6 +615,16 @@ Route::prefix('account')->group(function () {
             Route::put('/update/{id}', [SubscriptionPlanController::class, 'update'])->name('admin.subscription-plan.update');
             Route::post('/status/{id}', [SubscriptionPlanController::class, 'status'])->name('admin.subscription-plan.status');
             Route::delete('/delete/{id}', [SubscriptionPlanController::class, 'destroy'])->name('admin.subscription-plan.destroy');
+        });
+        // delivery intervals (weeks) management
+        Route::get('/delivery-interval', [DeliveryIntervalController::class, 'list'])->name('admin.delivery-interval.list');
+        Route::get('/delivery-interval/get', [DeliveryIntervalController::class, 'get'])->name('admin.delivery-interval.get');
+        Route::prefix('delivery-interval')->group(function () {
+            Route::get('/add', [DeliveryIntervalController::class, 'add'])->name('admin.delivery-interval.add');
+            Route::post('/store', [DeliveryIntervalController::class, 'store'])->name('admin.delivery-interval.store');
+            Route::get('/edit/{id}', [DeliveryIntervalController::class, 'edit'])->name('admin.delivery-interval.edit');
+            Route::put('/update/{id}', [DeliveryIntervalController::class, 'update'])->name('admin.delivery-interval.update');
+            Route::delete('/delete/{id}', [DeliveryIntervalController::class, 'destroy'])->name('admin.delivery-interval.destroy');
         });
         // customer management
         Route::get('/customers', [UserController::class, 'list'])->name('admin.customers.list');
