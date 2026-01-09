@@ -12,7 +12,7 @@
                         <label for="points_per_rm" class="form-label">Points</label>
                         <input type="number" step="0.01" class="form-control" id="points_per_rm"
                             name="points_per_rm" required
-                            value="{{ $point_setting ? $point_setting->points_per_rm : '' }}">
+                            value="{{ isset($point_setting) && $point_setting ? $point_setting->points_per_rm : '' }}">
                     </div>
                     <div class="mb-3">
                         <label for="rm_per_point" class="form-label">Conversion in RM</label>
